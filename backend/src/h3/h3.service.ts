@@ -94,4 +94,84 @@ export class H3Service {
 
     return [];
   }
+
+  //   getShortestPath(
+  //     startLat: number,
+  //     startLng: number,
+  //     goalLat: number,
+  //     goalLng: number,
+  //     res: number
+  //   ): string[] {
+  //     interface Node {
+  //       h3Index: string;
+  //       cost: number;
+  //       heuristic: number;
+  //       parent?: Node;
+  //     }
+
+  //     const startH3Index = this.latLngtoCell(startLat, startLng, res);
+  //     const goalH3Index = this.latLngtoCell(goalLat, goalLng, res);
+
+  //     const haversineDistance = (h3Index1: string, h3Index2: string): number => {
+  //       const [lat1, lon1] = h3.cellToLatLng(h3Index1);
+  //       const [lat2, lon2] = h3.cellToLatLng(h3Index2);
+  //       const toRadians = (deg: number) => (deg * Math.PI) / 180;
+  //       const R = 6371; // Earth radius in km
+  //       const dLat = toRadians(lat2 - lat1);
+  //       const dLon = toRadians(lon2 - lon1);
+  //       const a =
+  //         Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+  //         Math.cos(toRadians(lat1)) *
+  //           Math.cos(toRadians(lat2)) *
+  //           Math.sin(dLon / 2) *
+  //           Math.sin(dLon / 2);
+  //       const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  //       return R * c;
+  //     };
+
+  //     const openSet = new PriorityQueue<Node>((a, b) => (a.cost + a.heuristic) - (b.cost + b.heuristic));
+  //     openSet.enqueue({
+  //       h3Index: startH3Index,
+  //       cost: 0,
+  //       heuristic: haversineDistance(startH3Index, goalH3Index),
+  //     });
+  //     const closedSet: Set<string> = new Set();
+  //     const bestCosts: Map<string, number> = new Map();
+
+  //     while (!openSet.isEmpty()) {
+  //       const current = openSet.dequeue()!;
+  //       if (current.h3Index === goalH3Index) {
+  //         const path = [];
+  //         let node: Node | undefined = current;
+  //         while (node) {
+  //           path.unshift(node.h3Index);
+  //           node = node.parent;
+  //         }
+  //         return path;
+  //       }
+
+  //       closedSet.add(current.h3Index);
+
+  //       const neighbors = h3.kRing(current.h3Index, 1);
+  //       for (const neighbor of neighbors) {
+  //         if (closedSet.has(neighbor)) continue;
+
+  //         const tentativeCost = current.cost + 1; // Update if edge weights vary
+  //         const bestCost = bestCosts.get(neighbor);
+
+  //         if (bestCost === undefined || tentativeCost < bestCost) {
+  //           bestCosts.set(neighbor, tentativeCost);
+  //           openSet.enqueue({
+  //             h3Index: neighbor,
+  //             cost: tentativeCost,
+  //             heuristic: haversineDistance(neighbor, goalH3Index),
+  //             parent: current,
+  //           });
+  //         }
+  //       }
+  //     }
+
+  //     return [];
+  //   }
+  // }
 }
