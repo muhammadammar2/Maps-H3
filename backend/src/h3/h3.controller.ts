@@ -1,27 +1,26 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import { H3Service } from './h3.service';
-// import { latLngToCell } from 'h3-js';
 
 @Controller('h3')
 export class H3Controller {
   constructor(private readonly h3Service: H3Service) {}
 
   @Get('latLngToCell')
-  latLngtoCell(
+  latLngToCell(
     @Query('lat') lat: string,
     @Query('lng') lng: string,
     @Query('res') res: string,
   ) {
-    return this.h3Service.latLngtoCell(
+    return this.h3Service.latLngToCell(
       parseFloat(lat),
       parseFloat(lng),
-      parseFloat(res),
+      parseInt(res, 10),
     );
   }
 
-  @Get('cellToLatlng')
-  cellToLatlng(@Query('cell') cell: string) {
-    return this.h3Service.cellTolatLng(cell);
+  @Get('cellToLatLng')
+  cellToLatLng(@Query('cell') cell: string) {
+    return this.h3Service.cellToLatLng(cell);
   }
 
   @Get('cellToBoundary')
