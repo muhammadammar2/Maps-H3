@@ -24,6 +24,7 @@
     "@nestjs/core": "^10.0.0",
     "@nestjs/platform-express": "^10.0.0",
     "h3-js": "^4.1.0",
+    "js-priority-queue": "^0.1.5",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1"
   },
