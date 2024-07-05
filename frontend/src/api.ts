@@ -10,17 +10,38 @@ export const fetchShortestPath = async (
   const response = await fetch(
     `http://localhost:4000/h3/shortestPath?startLat=${startLat}&startLng=${startLng}&goalLat=${endLat}&goalLng=${endLng}&res=9`
   );
+  if (!response.ok) {
+    throw new Error(`Failed to fetch shortest path: ${response.statusText}`);
+  }
   return response.json();
 };
 
 export const fetchCoordinates = async (
   cell: string
-): Promise<[number, number]> => {
-  const response = await fetch(
-    `http://localhost:4000/h3/cellToLatLng?cell=${cell}`
-  );
-  const data = await response.json();
-  return [data.lng, data.lat];
+): Promise<[number | undefined, number | undefined]> => {
+  try {
+    const response = await fetch(
+      `http://localhost:4000/h3/cellToLatLng?cell=${cell}`
+    );
+
+    if (!response.ok) {
+      throw new Error(
+        `Failed to fetch coordinates for cell ${cell}: ${response.statusText}`
+      );
+    }
+
+    const data = await response.json();
+    if (!data || !data.lat || !data.lng) {
+      throw new Error(
+        `Invalid data format for cell ${cell}: ${JSON.stringify(data)}`
+      );
+    }
+
+    return [data.lat, data.lng];
+  } catch (error) {
+    console.error(`Error fetching coordinates for cell ${cell}:`, error);
+    return [undefined, undefined];
+  }
 };
 
 export const geocodeLocation = async (
