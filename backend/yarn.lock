@@ -969,6 +969,11 @@
     expect "^29.0.0"
     pretty-format "^29.0.0"
 
+"@types/js-priority-queue@^0.0.9":
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/@types/js-priority-queue/-/js-priority-queue-0.0.9.tgz#ca29ea1094023213845f536872285e7dcb44ecba"
+  integrity sha512-BoAVfDZPOCu6Ue91b0BeMQ6NRWEt4nvC7yG74ZH6jhmUJULF8wRIUsuHfmAaJz9trptzVTt30/i+iiNJqCKrYQ==
+
 "@types/json-schema@*", "@types/json-schema@^7.0.12", "@types/json-schema@^7.0.8":
   version "7.0.15"
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.15.tgz#596a1747233694d50f6ad8a7869fcb6f56cf5841"
@@ -1887,7 +1892,7 @@ core-util-is@^1.0.3, core-util-is@~1.0.0:
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.3.tgz#a6042d3634c2b27e9328f837b965fac83808db85"
   integrity sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==
 
-cors@2.8.5:
+cors@2.8.5, cors@^2.8.5:
   version "2.8.5"
   resolved "https://registry.yarnpkg.com/cors/-/cors-2.8.5.tgz#eac11da51592dd86b9f06f6e7ac293b3df875d29"
   integrity sha512-KIHbLJqu73RGr/hnbrO9uBeixNGuvSQjul/jdFvS/KFSIH1hWVd1ng7zOHx+YrEfInLG7q4n6GHQ9cDtxv/P6g==

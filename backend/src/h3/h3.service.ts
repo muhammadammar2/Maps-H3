@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import * as h3 from 'h3-js';
 import PriorityQueue from 'js-priority-queue';
 
+console.log('PriorityQueue:', PriorityQueue);
+
 @Injectable()
 export class H3Service {
   // Conversion of geographical coordinates to h3 index
@@ -22,7 +24,7 @@ export class H3Service {
     return h3.cellToBoundary(cell, formatAsGeoJson);
   }
 
-  // A* shortest path finding within h3 grid
+  // A*
   getShortestPath(
     startLat: number,
     startLng: number,
@@ -44,7 +46,7 @@ export class H3Service {
       const [lat1, lon1] = this.cellToLatLng(h3Index1);
       const [lat2, lon2] = this.cellToLatLng(h3Index2);
       const toRadians = (deg: number) => (deg * Math.PI) / 180;
-      const R = 6371; // Earth radius in km
+      const R = 6371; // earth radius in km
       const dLat = toRadians(lat2 - lat1);
       const dLon = toRadians(lon2 - lon1);
       const a =
@@ -84,12 +86,11 @@ export class H3Service {
 
       closedSet.add(current.h3Index);
 
-      // Cast h3 to any to bypass TypeScript type checking
       const neighbors = (h3 as any).kRing(current.h3Index, 1) as string[];
       for (const neighbor of neighbors) {
         if (closedSet.has(neighbor)) continue;
 
-        const tentativeCost = current.cost + 1; // Update if edge weights vary
+        const tentativeCost = current.cost + 1;
         const bestCost = bestCosts.get(neighbor);
 
         if (bestCost === undefined || tentativeCost < bestCost) {
