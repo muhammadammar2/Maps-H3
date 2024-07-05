@@ -2,21 +2,16 @@ import { Injectable } from '@nestjs/common';
 import * as h3 from 'h3-js';
 import PriorityQueue from 'js-priority-queue';
 
-console.log('PriorityQueue:', PriorityQueue);
-
 @Injectable()
 export class H3Service {
-  // Conversion of geographical coordinates to h3 index
   latLngToCell(lat: number, lng: number, res: number): string {
     return h3.latLngToCell(lat, lng, res);
   }
 
-  // Conversion of h3 index to geographical coordinates
   cellToLatLng(cell: string): [number, number] {
     return h3.cellToLatLng(cell);
   }
 
-  // Get the boundary of an h3 cell
   cellToBoundary(
     cell: string,
     formatAsGeoJson: boolean = false,
@@ -24,7 +19,6 @@ export class H3Service {
     return h3.cellToBoundary(cell, formatAsGeoJson);
   }
 
-  // A*
   getShortestPath(
     startLat: number,
     startLng: number,
@@ -86,7 +80,7 @@ export class H3Service {
 
       closedSet.add(current.h3Index);
 
-      const neighbors = (h3 as any).kRing(current.h3Index, 1) as string[];
+      const neighbors = h3.gridDisk(current.h3Index, 1) as string[];
       for (const neighbor of neighbors) {
         if (closedSet.has(neighbor)) continue;
 

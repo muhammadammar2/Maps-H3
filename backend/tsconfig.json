@@ -6,7 +6,8 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "target": "ES2021",
+    "target": "es6", //ES2021
+    "esModuleInterop": true,
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
@@ -15,7 +16,7 @@
     "strictNullChecks": false,
     "noImplicitAny": false,
     "strictBindCallApply": false,
-    "forceConsistentCasingInFileNames": false,
+    "forceConsistentCasingInFileNames": true, //false
     "noFallthroughCasesInSwitch": false
   }
 }
