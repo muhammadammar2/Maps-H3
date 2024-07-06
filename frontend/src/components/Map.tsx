@@ -18,7 +18,7 @@
 //       map.current = new mapboxgl.Map({
 //         container: mapContainer.current,
 //         style: "mapbox://styles/mapbox/streets-v11",
-//         center: [73.0479, 33.6844], //isl pakistan
+//         center: [73.0479, 33.6844], // Islamabad, Pakistan
 //         zoom: 9,
 //       });
 //     }
@@ -45,12 +45,12 @@
 //             })
 //           );
 
-//           // filter out null coordinates
+//           // Filter out null coordinates
 //           const validCoordinates = coordinates.filter(
 //             (coord): coord is [number, number] => coord !== null
 //           );
 
-//           // ccheck if the source already exists
+//           // Check if the source already exists
 //           if (map.current?.getSource("route")) {
 //             map.current.removeLayer("route");
 //             map.current.removeSource("route");
@@ -63,7 +63,9 @@
 //               properties: {},
 //               geometry: {
 //                 type: "LineString",
-//                 coordinates: validCoordinates,
+//                 coordinates: validCoordinates.map(
+//                   ([lat, lng]) => [lng, lat] // Swap lat/lng to lng/lat
+//                 ),
 //               },
 //             },
 //           });
@@ -104,7 +106,7 @@
 //         endLat.toString(),
 //         endLng.toString()
 //       );
-//       console.log("Path data:", data); // path data
+//       console.log("Path data:", data); // Path data
 //       setPathData(data);
 //     } catch (error) {
 //       console.error("Error fetching path:", error);
@@ -220,8 +222,21 @@ const MapComponent: React.FC = () => {
     endLocation: string
   ) => {
     try {
+      console.log(`Searching path from ${startLocation} to ${endLocation}`);
+
       const [startLat, startLng] = await geocodeLocation(startLocation);
       const [endLat, endLng] = await geocodeLocation(endLocation);
+
+      if (startLat === undefined || startLng === undefined) {
+        throw new Error(`Invalid start location: ${startLocation}`);
+      }
+
+      if (endLat === undefined || endLng === undefined) {
+        throw new Error(`Invalid end location: ${endLocation}`);
+      }
+
+      console.log(`Start coordinates: ${startLat}, ${startLng}`);
+      console.log(`End coordinates: ${endLat}, ${endLng}`);
 
       const data = await fetchShortestPath(
         startLat.toString(),
@@ -233,6 +248,7 @@ const MapComponent: React.FC = () => {
       setPathData(data);
     } catch (error) {
       console.error("Error fetching path:", error);
+      alert(error.message); // Display error to the user
     }
   };
 
