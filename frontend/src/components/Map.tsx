@@ -37,10 +37,16 @@ const MapComponent: React.FC = () => {
                 coords.includes(undefined)
               ) {
                 console.warn(`Invalid coordinates for cell ${cell}:`, coords);
-                throw new Error(`Invalid coordinates for cell: ${cell}`);
+                // Skip invalid coordinates instead of throwing an error
+                return null;
               }
               return coords;
             })
+          );
+
+          // Filter out null coordinates
+          const validCoordinates = coordinates.filter(
+            (coord): coord is [number, number] => coord !== null
           );
 
           // Check if the source already exists
@@ -56,7 +62,7 @@ const MapComponent: React.FC = () => {
               properties: {},
               geometry: {
                 type: "LineString",
-                coordinates: coordinates,
+                coordinates: validCoordinates,
               },
             },
           });

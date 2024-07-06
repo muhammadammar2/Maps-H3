@@ -31,13 +31,13 @@ export const fetchCoordinates = async (
     }
 
     const data = await response.json();
-    if (!data || !data.lat || !data.lng) {
+    if (!Array.isArray(data) || data.length !== 2) {
       throw new Error(
         `Invalid data format for cell ${cell}: ${JSON.stringify(data)}`
       );
     }
 
-    return [data.lat, data.lng];
+    return [data[0], data[1]];
   } catch (error) {
     console.error(`Error fetching coordinates for cell ${cell}:`, error);
     return [undefined, undefined];
